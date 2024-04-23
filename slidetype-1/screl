@@ -1,0 +1,216 @@
+
+    # next_step(driver)
+    # next_step(driver)
+    # next_step(driver)
+    # next_step(driver)
+    # next_step(driver)
+    # next_step(driver)
+    # next_step(driver)
+    # next_step(driver)
+    # next_step(driver)
+
+    
+    # # Scrap Card
+    # slide_container = driver.find_element(By.CSS_SELECTOR, ".slide-container")
+    # scorm_slide = {'type': 'card', 'data': {'count': 0, 'card':[]}}
+    # card_elemets = slide_container.find_elements(By.CSS_SELECTOR, "div.flip-card")
+    # print('scorm containter')
+    # scorm_slide['data']['count'] = len(card_elemets)
+    # for card_elemet in card_elemets:
+    #     front_card = card_elemet.find_element(By.CSS_SELECTOR, ".flip-card-front")
+    #     front_txt_element = front_card.find_element(By.CSS_SELECTOR, ".whitespace-pre-wrap")
+    #     front_txt = front_txt_element.get_attribute('innerHTML')
+    #     back_card = card_elemet.find_element(By.CSS_SELECTOR, ".flip-card-back")
+    #     back_txt_element = back_card.find_element(By.CSS_SELECTOR, ".whitespace-pre-wrap")
+    #     back_txt = back_txt_element.get_attribute('innerHTML')
+
+    #     scorm_slide['data']['card'].append({'front': front_txt, 'back': back_txt})
+
+    # scorm_obj["slides"].append(scorm_slide)
+    # print(str(scorm_obj))
+
+    # next_step(driver)
+    # # Scrap Sorting
+    # slide_container = driver.find_element(By.CSS_SELECTOR, ".slide-container")
+    # scorm_slide = {'type': 'sorting', 'data': {'count': 0, 'data': [], 'sorting':[]}}
+    # drag_elemet = slide_container.find_element(By.XPATH, ".//div[@role='button' and @tabindex]")
+
+    # print(drag_elemet.text)
+    # sort_wrap_elemet = drag_elemet.find_element(By.XPATH, "..").find_element(By.XPATH, "..").find_element(By.XPATH, "..").find_element(By.XPATH, "..")
+    
+    
+    # sort_card_elemet = sort_wrap_elemet.find_element(By.XPATH, "./*[4]")
+    # # print(sort_card_elemet.get_attribute('innerHTML'))
+    # sort_button_elements = sort_card_elemet.find_elements(By.XPATH, ".//button[@tabindex]")
+    # print(len(sort_button_elements))
+    # i = 0
+    # for sort_button_element in sort_button_elements:
+    #     scorm_slide['data']['sorting'].append({'id': i, 'text': sort_button_element.text})
+    #     i = i + 1
+    
+    # sort_element_obj = {'text':'', 'sort': -1}
+    # while True:
+    #     try:
+    #         i = -1
+    #         drag_elemet = slide_container.find_element(By.XPATH, ".//div[@role='button' and @tabindex]")
+    #         sort_element_text = drag_elemet.text
+    #         sort_element_obj = {'text':sort_element_text, 'sort': -1}
+    #         for sort_button_element in sort_button_elements:
+    #             i = i + 1
+    #             sort_button_element.click()
+    #             time.sleep(3)
+    #             drag_elemet = slide_container.find_element(By.XPATH, ".//div[@role='button' and @tabindex]")
+    #             if sort_element_text != drag_elemet.text:
+    #                 sort = i
+    #                 sort_element_obj['sort'] = i
+    #                 scorm_slide['data']['data'].append(sort_element_obj)
+    #                 break
+    #     except NoSuchElementException:
+    #         if i != -1:
+    #             sort_element_obj['sort'] = i
+    #             scorm_slide['data']['data'].append(sort_element_obj)
+    #         break
+    # # sort_button_elements[0].click()
+    # # print('scorm containter')
+    # time.sleep(3)
+    # # scorm_slide['data']['count'] = len(card_elemets)
+    # # for card_elemet in card_elemets:
+    # #     front_card = card_elemet.find_element(By.CSS_SELECTOR, ".flip-card-front")
+    # #     front_txt_element = front_card.find_element(By.CSS_SELECTOR, ".whitespace-pre-wrap")
+    # #     front_txt = front_txt_element.get_attribute('innerHTML')
+    # #     back_card = card_elemet.find_element(By.CSS_SELECTOR, ".flip-card-back")
+    # #     back_txt_element = back_card.find_element(By.CSS_SELECTOR, ".whitespace-pre-wrap")
+    # #     back_txt = back_txt_element.get_attribute('innerHTML')
+
+    # #     scorm_slide['data']['card'].append({'front': front_txt, 'back': back_txt})
+
+    # scorm_slide['data']['count'] = len(scorm_slide['data']['data'])
+    # scorm_obj["slides"].append(scorm_slide)
+    # print(str(scorm_obj))
+
+
+    # next_step(driver)
+    # # Scrap multiple choice
+    # slide_container = driver.find_element(By.CSS_SELECTOR, ".slide-container")
+    # scorm_slide = {'type': 'multichoice', 'data': {'count': 0, 'value': -1, 'choice':[]}}
+    # select_tag_element = slide_container.find_element(By.XPATH, ".//div[text()='Select one']")
+    # choice_elements = select_tag_element.find_element(By.XPATH, "following-sibling::*[1]").find_elements(By.XPATH, "./*")
+    # scorm_slide['data']['count'] = len(choice_elements)
+
+    # i = 0
+    # for choice_element in choice_elements:
+    #     content_element = choice_element.find_element(By.XPATH, ".//div[@contenteditable]")
+    #     choice_text = content_element.text
+    #     scorm_slide['data']['choice'].append({'id':i, 'text': choice_text})
+    #     i = i + 1
+    # choice_elements[0].click()
+    # time.sleep(1)
+    # check_button_element = select_tag_element.find_element(By.XPATH, ".//following-sibling::*[button[text()='Check']][1]")
+    # check_button_element.click()
+    # time.sleep(1)
+    # i = -1
+    # for choice_element in choice_elements:
+    #     i = i + 1
+    #     if "d=\"M4.5 12.75l6 6 9-13.5\"" in choice_element.get_attribute('innerHTML'):
+    #         scorm_slide['data']['value'] = i
+    #         break
+       
+    # scorm_obj["slides"].append(scorm_slide)
+    # print(str(scorm_obj))
+
+    # next_step(driver)
+    # # Scrap multiple choice
+    # slide_container = driver.find_element(By.CSS_SELECTOR, ".slide-container")
+    # scorm_slide = {'type': 'multichoice', 'data': {'count': 0, 'value': -1, 'choice':[]}}
+    # select_tag_element = slide_container.find_element(By.XPATH, ".//div[text()='Select one']")
+    # choice_elements = select_tag_element.find_element(By.XPATH, "following-sibling::*[1]").find_elements(By.XPATH, "./*")
+    # scorm_slide['data']['count'] = len(choice_elements)
+
+    # i = 0
+    # for choice_element in choice_elements:
+    #     content_element = choice_element.find_element(By.XPATH, ".//div[@contenteditable]")
+    #     choice_text = content_element.text
+    #     scorm_slide['data']['choice'].append({'id':i, 'text': choice_text})
+    #     i = i + 1
+    # choice_elements[0].click()
+    # time.sleep(1)
+    # check_button_element = select_tag_element.find_element(By.XPATH, ".//following-sibling::*[button[text()='Check']][1]")
+    # check_button_element.click()
+    # time.sleep(1)
+    # i = -1
+    # for choice_element in choice_elements:
+    #     i = i + 1
+    #     if "d=\"M4.5 12.75l6 6 9-13.5\"" in choice_element.get_attribute('innerHTML'):
+    #         scorm_slide['data']['value'] = i
+    #         break
+       
+    # scorm_obj["slides"].append(scorm_slide)
+    # print(str(scorm_obj))
+
+    # next_step(driver)
+
+    # next_step(driver)
+    # # Scrap multiple choice
+    # slide_container = driver.find_element(By.CSS_SELECTOR, ".slide-container")
+    # scorm_slide = {'type': 'multichoice', 'data': {'count': 0, 'value': -1, 'choice':[]}}
+    # select_tag_element = slide_container.find_element(By.XPATH, ".//div[text()='Select one']")
+    # choice_elements = select_tag_element.find_element(By.XPATH, "following-sibling::*[1]").find_elements(By.XPATH, "./*")
+    # scorm_slide['data']['count'] = len(choice_elements)
+
+    # i = 0
+    # for choice_element in choice_elements:
+    #     content_element = choice_element.find_element(By.XPATH, ".//div[@contenteditable]")
+    #     choice_text = content_element.text
+    #     scorm_slide['data']['choice'].append({'id':i, 'text': choice_text})
+    #     i = i + 1
+    # choice_elements[0].click()
+    # time.sleep(1)
+    # check_button_element = select_tag_element.find_element(By.XPATH, ".//following-sibling::*[button[text()='Check']][1]")
+    # check_button_element.click()
+    # time.sleep(1)
+    # i = -1
+    # for choice_element in choice_elements:
+    #     i = i + 1
+    #     if "d=\"M4.5 12.75l6 6 9-13.5\"" in choice_element.get_attribute('innerHTML'):
+    #         scorm_slide['data']['value'] = i
+    #         break
+       
+    # scorm_obj["slides"].append(scorm_slide)
+    # print(str(scorm_obj))
+
+    # next_step(driver)
+    # # Scrap multiple choice
+    # slide_container = driver.find_element(By.CSS_SELECTOR, ".slide-container")
+    # scorm_slide = {'type': 'multichoice', 'data': {'count': 0, 'value': -1, 'choice':[]}}
+    # select_tag_element = slide_container.find_element(By.XPATH, ".//div[text()='Select one']")
+    # choice_elements = select_tag_element.find_element(By.XPATH, "following-sibling::*[1]").find_elements(By.XPATH, "./*")
+    # scorm_slide['data']['count'] = len(choice_elements)
+
+    # i = 0
+    # for choice_element in choice_elements:
+    #     content_element = choice_element.find_element(By.XPATH, ".//div[@contenteditable]")
+    #     choice_text = content_element.text
+    #     scorm_slide['data']['choice'].append({'id':i, 'text': choice_text})
+    #     i = i + 1
+    # choice_elements[0].click()
+    # time.sleep(1)
+    # check_button_element = select_tag_element.find_element(By.XPATH, ".//following-sibling::*[button[text()='Check']][1]")
+    # check_button_element.click()
+    # time.sleep(1)
+    # i = -1
+    # for choice_element in choice_elements:
+    #     i = i + 1
+    #     if "d=\"M4.5 12.75l6 6 9-13.5\"" in choice_element.get_attribute('innerHTML'):
+    #         scorm_slide['data']['value'] = i
+    #         break
+       
+    # scorm_obj["slides"].append(scorm_slide)
+    # print(str(scorm_obj))
+
+    # next_step(driver)
+    
+       
+    # scorm_obj["slides"].append(scorm_slide)
+    # print(str(scorm_obj))
+
+    
