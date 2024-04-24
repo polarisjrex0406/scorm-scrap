@@ -1,0 +1,171 @@
+#header .profile .job-title a {
+    font-size: 15px;
+    display: inline-block;
+    background: #322721;
+    color: #ce793b;
+    line-height: 1;
+    padding: 5px 15px;
+    margin-right: 4px;
+    margin-top:10px;
+    border-radius: 30px;
+    text-align: center;
+    transition: 0.3s;
+  }
+
+#about {
+    margin: 0px;
+    padding: 0px;
+    border-radius: 10px;
+}
+
+
+#right-header {
+    position: fixed;
+    top: 0;
+    right: 0;
+    transition: all ease-in-out 0.5s;
+    z-index: 9997;
+    transition: all 0.5s;
+    margin-top:10px;
+    margin-left:20px;
+    margin-bottom:10px;
+    margin-right:20px;
+    border-radius: 10px;
+    background: #1c1c1c;
+    height:70%;
+    overflow-y: auto;
+  }
+
+
+  #right-header .nav-menu a,
+  #right-header .nav-menu a:focus {
+  display: flex;
+  align-items: center;
+  color: #a8a9b4;
+  padding: 25px 10px 0px 10px;
+  margin-bottom: 8px;
+  transition: 0.3s;
+  font-size: 10px;
+}
+
+#right-header .nav-menu a i,
+#right-header .nav-menu a:focus i {
+  font-size: 20px;
+  padding:3px;
+  color: #6f7180;
+}
+
+
+#right-header .nav-menu a:hover,
+#right-header .nav-menu .active,
+#right-header .nav-menu .active:focus,
+#right-header .nav-menu li:hover>a {
+  text-decoration: none;
+  color: #fff;
+}
+
+#right-header .nav-menu a:hover i,
+#right-header .nav-menu .active i,
+#right-header .nav-menu .active:focus i,
+#right-header .nav-menu li:hover>a i {
+  color: #131313;
+  padding:3px;
+  background-color: #f68f42;
+  border-radius: 3px;
+}
+
+.about .content{
+    padding-top: 30px;
+    padding-left: 50px;
+}
+.about .content p {
+    color: #8e8e8e;
+}
+
+.chat-btn a{
+    font-size: 18px;
+    display: inline-block;
+    background: #f68f42;
+    color: #131313;
+    padding: 1px 10px;
+    padding-right: 2px;
+    margin-right: 4px;
+    border-radius: 17px;
+    transition: 0.3s;
+  }
+
+  .chat-btn a i{
+    font-size: 16px;
+    display: inline-block;
+    background: #131313;
+    color: #f68f42;
+    margin-left: 10px;
+    padding: 5px 5px;
+    border-radius: 50%;
+    text-align: center;
+  }
+
+  .chat-btn a:hover {
+    background: #f68f42;
+    color: #131313;
+    text-decoration: none;
+  }
+  
+
+#header ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+#header ul li {
+    font-size: 14px;
+    margin-bottom: 15px;
+    color:#909090;
+    display: flex;
+    align-items: center;
+  }
+
+
+  
+#header ul strong {
+    margin-right: 10px;
+    text-align: left;
+    color: #cccccc;
+  }
+  #header ul span {
+    width: 100%;
+    text-align: right;
+  }
+
+
+.container{
+    padding: 0px;
+}
+.container .row {
+    padding: 30px;
+    border-radius: 10px;
+}
+.container .row{
+    background: #1c1c1c;
+    margin-top: 10px;
+}
+#portfolio .container .row {
+    padding: 0px;
+    border-radius: 10px;
+}
+
+#portfolio .container .filter {
+    padding: 0px;
+    background: #131313;
+    margin-top: 0px;
+    border-radius: 10px;
+}
+
+#about .container{
+    margin-top: 10px;
+}
+#about .container .row{
+    background: url(../img/background2.png);
+    background-size: cover;
+    margin-top: 10px;
+}
