@@ -33,6 +33,8 @@ from slidetype import scsectiondivider
 from slidetype import scblankparagraph
 from slidetype import scvideo
 from slidetype import scmain
+from slidetype import scmenu
+from slidetype import sctitle
 
 from PyQt6.QtCore import pyqtSignal, QObject, QThread
 
@@ -58,7 +60,9 @@ class ScrapWorker(QObject):
         self.show_brower = show_brower
     def do_work(self):
         scorm_obj = {
-            'slides': []
+            'slides': [],
+            'sections': [],
+            'title': ''
         }
 
         # Preparing Base Files
@@ -110,12 +114,24 @@ class ScrapWorker(QObject):
                 utils.download_resource(css_file_url, self.dest_dir + "/scorm/src", 'main.css')
                 print('Main CSS downloaded successfully')
         
+        # Scrap Menu
+        self.step_signal.emit('Menu')
+        check, slide_items = scmenu.check_do(driver, slide_no, self.dest_dir + "/scorm")
+        if check:
+            scorm_obj["sections"] = slide_items
 
         try_count = 0
+        question_count = 0
 
         while not scfinish.check_do(driver) and try_count == 0:
             slide = {'content': '', 'data': [], 'audio': {}}
-            
+            if slide_no == 0:
+                # Scrap Static
+                self.step_signal.emit('Title')
+                check, slide_title = sctitle.check_do(driver, slide_no, self.dest_dir + "/scorm")
+                if check:
+                    scorm_obj["title"] = slide_title
+                
             # Scrap Static
             self.step_signal.emit('Image Static')
             check, slide_items = scstatic.check_do(driver, slide_no, self.dest_dir + "/scorm")
@@ -130,9 +146,10 @@ class ScrapWorker(QObject):
 
             # Scrap Sorting
             self.step_signal.emit('Sorting')
-            check, slide_items = scsorting.check_do(driver, slide_no, self.dest_dir + "/scorm")
+            check, slide_items, qc = scsorting.check_do(driver, slide_no, self.dest_dir + "/scorm", question_count)
             if check:
                 slide['data'] += slide_items
+                question_count = qc
 
             # Scrap Card
             self.step_signal.emit('Card')
@@ -142,16 +159,24 @@ class ScrapWorker(QObject):
 
             # Scrap Multi Choice
             self.step_signal.emit('Multi Choice')
-            check, slide_items = scmultichoice.check_do(driver, slide_no, self.dest_dir + "/scorm")
+            check, slide_items, qc = scmultichoice.check_do(driver, slide_no, self.dest_dir + "/scorm", question_count)
             if check:
                 slide['data'] += slide_items
+                question_count = qc
 
             # Scrap Matching
             self.step_signal.emit('Matching')
-            check, slide_items = scmatching.check_do(driver, slide_no, self.dest_dir + "/scorm")
+            check, slide_items, qc = scmatching.check_do(driver, slide_no, self.dest_dir + "/scorm", question_count)
             if check:
                 # try_count = 1
                 slide['data'] += slide_items
+                question_count = qc
+
+            # Scrap Section Divider
+            self.step_signal.emit('Section Devider Checking')
+            check, section = scsectiondivider.check_do(driver, slide_no, self.dest_dir + "/scorm", scorm_obj["sections"])
+            if check:
+                scorm_obj["sections"] = section
 
             slide_main = scmain.do(driver, slide_no, self.dest_dir + "/scorm")
             slide['content'] = slide_main['content']

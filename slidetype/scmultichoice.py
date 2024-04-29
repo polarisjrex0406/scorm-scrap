@@ -5,7 +5,7 @@ from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
 import utils
 
-def check_do(driver, slide_no, dest_dir):
+def check_do(driver, slide_no, dest_dir, question_count):
 
     print('###### Scrap Multiple Choices ######')
 
@@ -14,10 +14,11 @@ def check_do(driver, slide_no, dest_dir):
     try:
         select_tag_element = slide_container.find_element(By.XPATH, ".//div[text()='Select one']")
     except NoSuchElementException as e:
-        return False, ''
+        return False, '', question_count
 
     ret_obj = []
-    multichoice_data = {'type': 'multichoice', 'data': {'count': 0, 'value': -1, 'choice':[]}}
+    multichoice_data = {'type': 'multichoice', 'data': {'count': 0, 'value': -1, 'choice':[]}, 'question_id': question_count}
+    question_count = question_count + 1
 
     multichoice_box = select_tag_element.find_element(By.XPATH, "following-sibling::*[1]")
     choice_elements = multichoice_box.find_elements(By.XPATH, "./*")
@@ -46,6 +47,6 @@ def check_do(driver, slide_no, dest_dir):
     driver.execute_script("arguments[0].classList.add('choice-check');", check_button_element)
     time.sleep(1)
     ret_obj.append(multichoice_data)    
-    return True, ret_obj
+    return True, ret_obj, question_count
     # print(str(scorm_obj))
 

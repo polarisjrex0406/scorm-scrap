@@ -5,7 +5,7 @@ from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
 import utils
 
-def check_do(driver, slide_no, dest_dir):
+def check_do(driver, slide_no, dest_dir, question_count):
 
     print('###### Scrap Sorting ######')
     slide_container = driver.find_element(By.CSS_SELECTOR, ".slide-container")
@@ -14,11 +14,11 @@ def check_do(driver, slide_no, dest_dir):
         drag_elemet = slide_container.find_element(By.XPATH, ".//div[@role='button' and @tabindex and not(preceding-sibling::*) and not(following-sibling::*) and parent::div]")
     except NoSuchElementException as e:
         # Check Slide Type is Matching
-        return False, ''
+        return False, '', question_count
         
     ret_obj = []
-    sorting_data = {'type': 'sorting', 'data': {'count': 0, 'data': [], 'sorting':[]}}
-    
+    sorting_data = {'type': 'sorting', 'data': {'count': 0, 'data': [], 'sorting':[]}, 'question_id': question_count}
+    question_count = question_count + 1
 
     # print(drag_elemet.text)
     sort_wrap_elemet = drag_elemet.find_element(By.XPATH, "..").find_element(By.XPATH, "..").find_element(By.XPATH, "..")
@@ -62,6 +62,6 @@ def check_do(driver, slide_no, dest_dir):
     sorting_data['data']['count'] = len(sorting_data['data']['data'])
     ret_obj.append(sorting_data)    
 
-    return True, ret_obj
+    return True, ret_obj, question_count
     # print(str(scorm_obj))
 

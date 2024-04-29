@@ -1,15 +1,62 @@
 $(document).ready(function () {
 
     var slides = scorm_content.slides
+    var scorm_title = scorm_content.title
+    var scorm_sections = scorm_content.sections
     var slide_count = slides.length
     var current_slide = 0;
     var slide_nextable = true
     var audio_auto_play = 1
     var audio_play_speed = 1
-    
+    var question_count = 0
+    var question_right_count = 0
+    var question_result = []
+    var current_question = -1
+
+    var check_question = function() {
+        question_count = 0
+        question_right_count = 0
+        current_question = -1
+        for ( i = 0; i < slide_count; i++ )
+        {
+            slide_data = slides[i].data
+            for ( j = 0; j < slide_data.length; j++ ){
+                data_item = slide_data[j]
+                if ( data_item.type == 'sorting' || data_item.type == 'matching' || data_item.type == 'multichoice') {
+                    question_result[question_count] = -1
+                    question_count++
+                }
+            }
+        }
+    }
+
+    $('.scorm-restart-btn').click(function(){
+        check_question()
+        current_slide = 0
+        set_slide(current_slide)
+    })
+
+    var finish_lesson = function() {
+        console.log(question_result)
+        question_right_count = 0
+        for( i = 0; i < question_count; i++ ) {
+            if( question_result[i] == 1) {
+                question_right_count++;
+            }
+        }
+        pro = 100*question_right_count/question_count
+        $('.question-result-text').html('' + question_right_count + '/' + question_count)
+        $('.question-result-bar').css('width', ''+pro.toFixed(2)+'%')
+        $('.question-result-pro').html('' + pro.toFixed(2)+'%')
+        $('#finishModal').modal()
+    }
     $('.scorm-down-btn').click(function () {
         if(!slide_nextable) return
-        if (current_slide == slide_count) return
+        if (current_slide == slide_count - 1){
+            console.log('23423432')
+            finish_lesson()
+            return
+        }
         current_slide++
         set_slide(current_slide)
     });
@@ -21,6 +68,7 @@ $(document).ready(function () {
     });
 
     var set_slide = function (slide_no) {
+        if(slide_no < 0) return
         slide_nextable = true
         console.log(slide_no)
         $('.slide-container').html('')
@@ -64,6 +112,7 @@ $(document).ready(function () {
 
             /** Sorting */
             if( data_type == 'sorting') {
+                current_question = data_item.question_id
                 slide_nextable = false
                 sorting_box = $('.sorting-box')
                 sorting_wrap = $('.sorting-wrap')
@@ -115,6 +164,7 @@ $(document).ready(function () {
 
             /** Multichoice */
             if( data_type == 'multichoice' ) {
+                current_question = data_item.question_id
                 slide_nextable = false
                 multichoice_box = $('.multichoice-box')
                 $('.choice-check').html('<svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" stroke-width=\"1.5\" stroke=\"currentColor\" aria-hidden=\"true\" class=\"h-5 w-5 stroke-2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5\"></path></svg>Check')
@@ -156,6 +206,16 @@ $(document).ready(function () {
                     sel_item.find('.choice-border').css('border-color', 'black')
                     sel_item.find('.choice-back').css('opacity', '1')
                     sel_item.find('.choice-text').css('color', 'black')
+                    
+                    console.log('current_question', current_question)
+                    if( question_result[current_question] == -1){
+                        if( slide_content.value == sel_id ){
+                            question_result[current_question] = 1
+                        } else {
+                            question_result[current_question] = 0
+                        }
+        
+                    }
                     if( slide_content.value == sel_id) {
                         
                         sel_item.find('.choice-id-display').css({'border-color': 'rgb(78, 124, 71)', 'color': 'rgb(255, 255, 255)', 'background': 'rgb(78, 124, 71)'})
@@ -180,6 +240,7 @@ $(document).ready(function () {
 
             /** Matching */
             if( data_type == 'matching') {
+                current_question = data_item.question_id
                 slide_nextable = false
                 matching_box = $('.matching-box')
                 $('.matching-check').html('<svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" stroke-width=\"1.5\" stroke=\"currentColor\" aria-hidden=\"true\" class=\"h-5 w-5 stroke-2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5\"></path></svg>Check')
@@ -214,6 +275,7 @@ $(document).ready(function () {
                     $('button.matching-check').html('<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" class="h-5 w-5 stroke-2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5"></path></svg>Next')
                     var first_match = $('.match-first')
                     
+                    match_right_count = 0
                     for ( i = 0; i < first_match.length; i++ ){
                         var wrap_element = $(first_match[i]).parent().parent().parent()
                         var first_text = $(first_match[i]).text()
@@ -229,6 +291,7 @@ $(document).ready(function () {
                                 if ( data_data.matches[j].second == second_text ){
                                     matching_element = 
                                     '<div class="relative z-10 flex h-8 w-8 flex-none select-none items-center justify-center border-2 border-solid text-base rounded-full group" style="border-color: rgb(78, 124, 71); color: rgb(255, 255, 255); background: rgb(78, 124, 71);"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" class="h-5 w-5 stroke-[3px]"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path></svg></div>'
+                                    match_right_count++;
                                 } else {
                                     matching_element = 
                                     '<div class="relative z-10 flex h-8 w-8 flex-none select-none items-center justify-center border-2 border-solid text-base rounded-full group" style="border-color: rgb(175, 45, 45); color: rgb(255, 255, 255); background: rgb(175, 45, 45);"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" class="h-6 w-6 stroke-[3px]"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg></div>'
@@ -241,6 +304,15 @@ $(document).ready(function () {
                         wrap_element.html(this_element_html)
 
                     }
+                    if( question_result[current_question] == -1){
+                        if( match_right_count == first_match.length){
+                            question_result[current_question] = 1
+                        } else {
+                            question_result[current_question] = 0
+                        }
+
+                    }
+                    
                     $('button.match-first').off()
                     $('button.match-second').off()
                     $('button.match-first').click(function(){
@@ -272,6 +344,10 @@ $(document).ready(function () {
                 $('.audio-play-btn').attr('audio-playing', '1')
             }
         }
+
+        $('button:contains("Begin")').click(function(){
+            $('.scorm-down-btn').click()
+        })
         return
     }
     $(function () {
@@ -288,6 +364,15 @@ $(document).ready(function () {
             $('.match-result').html('' + (match_count - wrong_count) + '/' + match_count + ' cards correct')
             $('.match-result').css('opacity', '1')
             $('.match-result').parent().css('opacity', '1')
+
+            if( question_result[current_question] == -1){
+                if( wrong_count == 0){
+                    question_result[current_question] = 1
+                } else {
+                    question_result[current_question] = 0
+                }
+
+            }
             slide_nextable = true
         }
 
@@ -500,7 +585,28 @@ $(document).ready(function () {
     $('.audio-speed-btn[data-index="'+parseInt(audio_play_speed*100)+'"]').attr('data-state', 'active')
     document.getElementById('audio-clip').playbackRate  = audio_play_speed
 
+    // Set Menu
+    var set_menu = function(){
+        console.log(scorm_title)
+        $('.menu-title').html(scorm_title)
 
-    set_slide(current_slide)
-   
+        section_group = ''
+        for( i = 1; i < scorm_sections.length; i++ ) {
+            section_group += '<button class="section-btn flex w-full items-center bg-white p-4 py-3 text-sm transition-all hover:bg-gray-100" style="border-color: rgb(0, 0, 0);" section-no="'+scorm_sections[i].slide_no+'"><div class="w-full truncate text-left text-lg" data-dismiss="modal">'+ scorm_sections[i].text+'</div></button>'
+        }
+        $('.section-button-group').html(section_group)
+
+        $('.section-btn').click(function(){
+            current_slide = $(this).attr('section-no')
+            set_slide($(this).attr('section-no'))
+        })
+    }
+
+    set_menu()
+    check_question()
+    $('.scorm-title-text').html(scorm_title)
+    $('.audio-source').attr('src', 'scorm/' + slides[0].audio.src)
+    set_slide(0)
+    // $('.scorm-down-btn').click()
 });
+

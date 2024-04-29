@@ -5,7 +5,7 @@ from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
 import utils
 
-def check_do(driver, slide_no, dest_dir):
+def check_do(driver, slide_no, dest_dir, question_count):
 
     print('###### Scrap Matching ######')
     slide_container = driver.find_element(By.CSS_SELECTOR, ".slide-container")
@@ -15,10 +15,11 @@ def check_do(driver, slide_no, dest_dir):
 
     # Check Slide Type is Matching
     if len(match_elements) == 0:
-        return False, ''
+        return False, '', question_count
     
     ret_obj = []
-    matching_data = {'type': 'matching', 'data': {'count': 0, 'matches':[]}}
+    matching_data = {'type': 'matching', 'data': {'count': 0, 'matches':[]},  'question_id': question_count}
+    question_count = question_count + 1
 
     match_wrap_elements = []
     match_wrap_elements_temp = []
@@ -81,6 +82,6 @@ def check_do(driver, slide_no, dest_dir):
     driver.execute_script("arguments[0].classList.add('matching-box');", matching_box)
     driver.execute_script("arguments[0].classList.add('matching-check');", check_button_element)
     ret_obj.append(matching_data)    
-    return True, ret_obj
+    return True, ret_obj, question_count
     # print(str(scorm_obj))
 

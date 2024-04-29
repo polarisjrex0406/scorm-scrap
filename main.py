@@ -67,7 +67,10 @@ class MyMainWindow(QMainWindow, Ui_MainWindow):
         self.scrap_error_signal.connect(self.on_scrap_error)
         self.scrap_step_signal.connect(self.on_scrap_step)
 
-        self.lnTargetURL.setText('https://app.mindsmith.ai/learn/clv2w0j8j0019jv0afec1u0d8')
+
+        self.lnTargetURL.setText('https://app.mindsmith.ai/learn/clumzudxw0056jt085xb7jcai')
+        # self.lnTargetURL.setText('https://app.mindsmith.ai/learn/clv2w0j8j0019jv0afec1u0d8')
+        self.lnDestFolder.setText('D:/_Zombie_/Scrapping/Test_Dir')
         # self.lnTargetURL.setText('https://app.mindsmith.ai/learn/clumzudxw0056jt085xb7jcai')
         # Connect Signals and Slots
         # self.scrap_thread = QThread()

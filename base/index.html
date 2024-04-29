@@ -180,7 +180,8 @@
     <div class="audio-panel pointer-events-auto fixed left-0 bottom-0 flex gap-2 p-2">
       <div class="relative flex h-full overflow-hidden rounded-md" data-state="closed">
         <div class="absolute bottom-0 left-0 right-0 top-0 z-10 " style="background-color: rgb(255, 82, 116);">
-          <div class="audio-progress absolute top-0 bottom-0 left-0 z-10 opacity-30" style="width: 0%; background-color: white;"></div>
+          <div class="audio-progress absolute top-0 bottom-0 left-0 z-10 opacity-30"
+            style="width: 0%; background-color: white;"></div>
         </div>
         <button audio-playing="0"
           class="audio-play-btn z-10 flex cursor-pointer items-center justify-center border-none bg-transparent py-2 transition-all hover:opacity-80 active:opacity-70 disabled:opacity-50 sm:w-12 w-14"
@@ -189,11 +190,16 @@
             <path stroke-linecap="round" stroke-linejoin="round"
               d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z">
             </path>
-          </svg></button><audio id="audio-clip" class="audio-clip" type="audio/mpeg">
+          </svg></button>
+          <!-- <iframe src="scorm/src/uploads_2F1aef3bb8-a490-41db-b3d7-12ff84a0a22f_2Fnarration.mp3" autoplay id="iframeAudio"> -->
+          </iframe>
+          <audio id="audio-clip" class="audio-clip" type="audio/mpeg" autoplay>
           <source class="audio-source"
             src="https://storage.googleapis.com/mindsmith/uploads%2F21469992-be6e-498e-8fcd-f531330f5453%2Fnarration.mp3"
-            type="audio/mpeg">
-        </audio><button
+            type="audio/mpeg"  autoplay>
+        </audio>
+        
+        <button
           class="z-10 flex h-10 cursor-pointer items-center justify-center border-none bg-transparent py-2 px-2 transition-all hover:opacity-80 active:opacity-70 sm:w-14 w-14"
           style="color: rgb(0, 0, 0);" id="audio-setting-btn" type="button" class="btn btn-primary" data-toggle="modal"
           data-target="#myModal"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -221,9 +227,9 @@
       <div class="flex items-start gap-2">
         <div class="flex gap-2 rounded"><button
             class="inline-flex bg-transparent items-center gap-2 justify-center rounded-md text-sm font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-white/10 h-10 px-4 py-2 border transition-all hover:opacity-80 active:scale-95"
-            style="background-color: rgb(255, 82, 116); color: rgb(0, 0, 0); border-color: rgba(0, 0, 0, 0.3);"><svg
-              xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-              stroke="currentColor" aria-hidden="true" class="h-5 w-5">
+            style="background-color: rgb(255, 82, 116); color: rgb(0, 0, 0); border-color: rgba(0, 0, 0, 0.3);"
+            data-toggle="modal" data-target="#menuModal"><svg xmlns="http://www.w3.org/2000/svg" fill="none"
+              viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" class="h-5 w-5">
               <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5">
               </path>
             </svg></button></div>
@@ -277,7 +283,8 @@
                           tabindex="-1" data-orientation="horizontal" data-radix-collection-item="">
                           <div class="whitespace-normal">Autoplay On</div>
                         </button><button type="button" role="tab" aria-selected="false"
-                          aria-controls="radix-:r5:-content-autoplay off" data-state="inactive" id="audio-auto-play-off" data-index="0"
+                          aria-controls="radix-:r5:-content-autoplay off" data-state="inactive" id="audio-auto-play-off"
+                          data-index="0"
                           class="audio-autoplay-btn inline-flex flex-grow items-center justify-center whitespace-nowrap rounded-lg bg-muted px-1 py-2 text-sm font-medium ring-offset-background transition-all hover:bg-muted-foreground/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm"
                           tabindex="-1" data-orientation="horizontal" data-radix-collection-item="">
                           <div class="whitespace-normal">Autoplay Off</div>
@@ -288,25 +295,27 @@
                         class="flex items-center justify-between gap-1 rounded-lg border bg-muted text-muted-foreground"
                         tabindex="0" data-orientation="horizontal" style="outline: none;"><button id="audio-speed-75"
                           type="button" role="tab" aria-selected="false" aria-controls="radix-:r8:-content-0.75"
-                          data-state="inactive" id="radix-:r8:-trigger-0.75" data-index="75" 
+                          data-state="inactive" id="radix-:r8:-trigger-0.75" data-index="75"
                           class="audio-speed-btn inline-flex flex-grow items-center justify-center whitespace-nowrap rounded-lg bg-muted px-1 py-2 text-sm font-medium ring-offset-background transition-all hover:bg-muted-foreground/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm"
                           tabindex="-1" data-orientation="horizontal"
                           data-radix-collection-item="">0.75x</button><button id="audio-speed-100" type="button"
                           role="tab" aria-selected="true" aria-controls="radix-:r8:-content-1" data-state="active"
-                          id="radix-:r8:-trigger-1" data-index="100" 
+                          id="radix-:r8:-trigger-1" data-index="100"
                           class="audio-speed-btn inline-flex flex-grow items-center justify-center whitespace-nowrap rounded-lg bg-muted px-1 py-2 text-sm font-medium ring-offset-background transition-all hover:bg-muted-foreground/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm"
                           tabindex="-1" data-orientation="horizontal" data-radix-collection-item="">1x</button><button
                           id="audio-speed-125" type="button" role="tab" aria-selected="false"
-                          aria-controls="radix-:r8:-content-1.25" data-state="inactive" id="radix-:r8:-trigger-1.25" data-index="125" 
+                          aria-controls="radix-:r8:-content-1.25" data-state="inactive" id="radix-:r8:-trigger-1.25"
+                          data-index="125"
                           class="audio-speed-btn inline-flex flex-grow items-center justify-center whitespace-nowrap rounded-lg bg-muted px-1 py-2 text-sm font-medium ring-offset-background transition-all hover:bg-muted-foreground/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm"
                           tabindex="-1" data-orientation="horizontal"
                           data-radix-collection-item="">1.25x</button><button id="audio-speed-150" type="button"
                           role="tab" aria-selected="false" aria-controls="radix-:r8:-content-1.5" data-state="inactive"
-                          id="radix-:r8:-trigger-1.5" data-index="150" 
+                          id="radix-:r8:-trigger-1.5" data-index="150"
                           class="audio-speed-btn inline-flex flex-grow items-center justify-center whitespace-nowrap rounded-lg bg-muted px-1 py-2 text-sm font-medium ring-offset-background transition-all hover:bg-muted-foreground/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm"
                           tabindex="-1" data-orientation="horizontal" data-radix-collection-item="">1.5x</button><button
                           id="audio-speed-200" type="button" role="tab" aria-selected="false"
-                          aria-controls="radix-:r8:-content-2" data-state="inactive" id="radix-:r8:-trigger-2" data-index="200"
+                          aria-controls="radix-:r8:-content-2" data-state="inactive" id="radix-:r8:-trigger-2"
+                          data-index="200"
                           class="audio-speed-btn inline-flex flex-grow items-center justify-center whitespace-nowrap rounded-lg bg-muted px-1 py-2 text-sm font-medium ring-offset-background transition-all hover:bg-muted-foreground/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm"
                           tabindex="-1" data-orientation="horizontal" data-radix-collection-item="">2.0x</button>
                       </div>
@@ -323,6 +332,148 @@
     </div>
   </div>
 
+  <div class="modal fade" id="menuModal" role="dialog" class="MuiDialog-root MuiModal-root css-126xj0f"
+    style="padding: 0px;">
+    <div class="modal-dialog  modal-dialog-centered MuiDialog-root MuiModal-root css-126xj0f" style="padding: 0px;">
+      <div class="modal-content" style="padding: 0px;">
+        <div class="modal-body" style="padding: 0px; ">
+          <div aria-hidden="true" class="MuiBackdrop-root MuiBackdrop-invisible MuiModal-backdrop css-esi9ax"
+            style="opacity: 1; transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;"></div>
+          <div tabindex="0" data-testid="sentinelStart"></div>
+          <div class="MuiDialog-container MuiDialog-scrollPaper css-ekeie0" role="presentation" tabindex="-1"
+            style="opacity: 1; transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms; ">
+            <div
+              class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation24 MuiDialog-paper MuiDialog-paperScrollPaper MuiDialog-paperWidthXs MuiDialog-paperFullWidth css-1xp58ha"
+              role="dialog" aria-labelledby=":rc:">
+              <div class="border-t-8" style="border-top-color: rgb(0, 0, 0); overflow-y: auto;">
+                <div class="flex flex-col gap-4 p-4 pb-2">
+                  <div class="flex w-full items-center">
+                    <div class="flex">
+                      <div
+                        class="flex items-center gap-2 rounded-full border px-0.5 py-0.5 text-sm text-muted-foreground"
+                        style="border-color: rgb(0, 0, 0); color: rgb(0, 0, 0); background-color: rgba(0, 0, 0, 0.1);">
+                        <div class="pl-1.5 leading-none">Completed</div>
+                        <div class="flex h-5 w-5 items-center justify-center rounded-full"><svg
+                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                            aria-hidden="true" class="h-5 w-5">
+                            <path fill-rule="evenodd"
+                              d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z"
+                              clip-rule="evenodd"></path>
+                          </svg></div>
+                      </div>
+                    </div>
+                    <div class="flex-grow"></div><button
+                      class="inline-flex bg-transparent items-center gap-2 justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-8 w-8"
+                      data-dismiss="modal"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                        stroke-width="1.5" stroke="currentColor" aria-hidden="true" class="h-5 w-5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+                      </svg></button>
+                  </div>
+                  <div class="text-lg font-bold menu-title">Set Up Godot Project for Claude API</div>
+                  <div class="rounded-full">
+                    <div class="relative pt-1">
+                      <div class="mb-4 flex h-2 overflow-hidden rounded bg-gray-200 text-xs">
+                        <div
+                          class="flex flex-col justify-center whitespace-nowrap text-center text-white shadow-none transition-all"
+                          style="width: 30.4348%; background-color: rgb(0, 0, 0);"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <button
+                  class="intro-section-btn section-btn flex w-full items-center p-4 py-3 text-sm transition-all hover:bg-gray-100 bg-gray-100 border-l-4 pl-2.5"
+                  style="border-color: rgb(0, 0, 0);" section-no="0">
+                  <div class="w-full text-left text-lg" data-dismiss="modal">Introduction</div>
+                </button>
+                <div class="flex flex-col section-button-group">
+                  <button class="flex w-full items-center bg-white p-4 py-3 text-sm transition-all hover:bg-gray-100"
+                    style="border-color: rgb(0, 0, 0);">
+                    <div class="w-full truncate text-left text-lg">Incorporating Chat Functionality in Godot </div>
+                  </button>
+                </div>
+                <div class="flex items-center p-4 justify-center">
+                  <button
+                    class="inline-flex bg-transparent items-center gap-2 justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 scorm-restart-btn" data-dismiss="modal">Restart
+                    Lesson
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div tabindex="0" data-testid="sentinelEnd"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="finishModal" role="dialog" class="MuiDialog-root MuiModal-root css-126xj0f"
+    style="padding: 0px;">
+    <div class="modal-dialog  modal-dialog-centered MuiDialog-root MuiModal-root css-126xj0f" style="padding: 0px;">
+      <div class="modal-content" style="padding: 0px;">
+        <div class="modal-body" style="padding: 0px; ">
+          <div class="MuiDialog-container MuiDialog-scrollPaper css-ekeie0" role="presentation" tabindex="-1"
+            style="opacity: 1; transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;">
+            <div
+              class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation24 MuiDialog-paper MuiDialog-paperScrollPaper MuiDialog-paperWidthXs MuiDialog-paperFullWidth css-1xp58ha"
+              role="dialog" aria-labelledby=":r1:">
+              <div class="border-t-8" style="border-top-color: rgb(0, 0, 0);">
+                <div class="flex flex-col gap-4 p-4 pb-2">
+                  <div class="flex items-center justify-between">
+                    <div class="flex">
+                      <div
+                        class="flex items-center gap-2 rounded-full border px-0.5 py-0.5 text-sm text-muted-foreground"
+                        style="border-color: rgb(0, 0, 0); color: rgb(0, 0, 0); background-color: rgba(0, 0, 0, 0.1);">
+                        <div class="pl-1.5 leading-none">Completed</div>
+                        <div class="flex h-5 w-5 items-center justify-center rounded-full"><svg
+                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                            aria-hidden="true" class="h-5 w-5">
+                            <path fill-rule="evenodd"
+                              d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z"
+                              clip-rule="evenodd"></path>
+                          </svg></div>
+                      </div>
+                    </div>
+                    <div class="flex">
+                      <div class="full flex rounded-full border px-1 py-1 border-green-600 bg-green-100 text-green-800">
+                        <div class="flex items-center gap-2 rounded-full px-3 py-1.5 text-sm text-white bg-green-600">
+                          <div class="leading-none">Passed</div>
+                        </div>
+                        <div class="flex px-2 question-result-text">0/0</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="text-lg font-bold scorm-title-text">01 What you'll need for Claude in Godot</div>
+                </div>
+                <div class="px-4">
+                  <div>
+                    <div class="pb-1 text-sm text-muted-foreground">Your Score</div>
+                    <div class="flex items-center gap-2 rounded border p-4 py-2">
+                      <div class="flex-grow rounded-full">
+                        <div class="relative">
+                          <div class="flex h-2 overflow-hidden rounded bg-gray-200 text-xs">
+                            <div
+                              class="flex flex-col justify-center whitespace-nowrap text-center text-white shadow-none transition-all bg-green-600 question-result-bar"
+                              style="width: 100%;"></div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="flex w-10 justify-center question-result-pro">100%</div>
+                    </div>
+                    <div class="pt-1 text-sm text-muted-foreground">0% required to pass</div>
+                  </div>
+                </div>
+                <div class="flex flex-col items-stretch gap-2 p-4"><button
+                    class="inline-flex bg-transparent items-center gap-2 justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:brightness-90 active:brightness-75 h-10 px-4 py-2 w-full"
+                    data-no-navigate="true" style="background-color: rgb(0, 0, 0); color: white;" data-dismiss="modal">Done</button><button
+                    class="inline-flex bg-transparent items-center gap-2 justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 w-full scorm-restart-btn" data-dismiss="modal">Restart
+                    Lesson</button></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 
 <!-- <script src="assets/js/jquery-min.js"></script> -->
